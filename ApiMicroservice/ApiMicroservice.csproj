@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+    <UserSecretsId>da6e3e5a-216a-4a9c-9c6c-72ea815cf5d8</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+    <Folder Include="Model\" />
+    <Folder Include="DbContexts\" />
+    <Folder Include="Repository\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Repository\Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="EntityFramework" Version="6.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="DbContexts\Call.cs" />
+    <Compile Remove="Migrations\20190409184851_InitialMigration.cs" />
+    <Compile Remove="Migrations\20190409184851_InitialMigration.Designer.cs" />
+    <Compile Remove="DbContexts\ApplicationContext.cs" />
+    <Compile Remove="DbContexts\BluetoothContext.cs" />
+    <Compile Remove="DbContexts\CallContext.cs" />
+    <Compile Remove="DbContexts\LocationContext.cs" />
+    <Compile Remove="DbContexts\SMSContext.cs" />
+    <Compile Remove="DbContexts\WifiContext.cs" />
+    <Compile Remove="DbContexts\ProductContext.cs" />
+    <Compile Remove="DbContexts\DbContext.cs" />
+  </ItemGroup>
+</Project>
