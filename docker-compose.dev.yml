@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  apimicroservice_dev:
+    image: ${DOCKER_REGISTRY-}apimicroservice
+    volumes:
+        - "./ApiMicroservice/:/src/ApiMicroservice"
+    ports:
+       - "8000:5000"
+    depends_on:
+      - datamicroservice_dev
+      - database_dev
+    build:
+      context: .
+      dockerfile: ApiMicroservice/Dockerfile-dev
+
+  datamicroservice_dev:
+    image: ${DOCKER_REGISTRY-}datamicroservice
+    volumes:
+        - "./DataMicroservice/:/src/DataMicroservice"
+    ports:
+       - "8001:5000"
+    build:
+      context: .
+      dockerfile: DataMicroservice/Dockerfile-dev
+
+  database_dev:
+    image: microsoft/mssql-server-linux
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: root123123
