@@ -7,9 +7,9 @@ namespace ApiMicroservice.Repository.Interfaces
     public interface IWifiRepository
     {
         IEnumerable<Wifi> GetWifis();
-        Wifi GetWifiById(int WifiId);
+        Wifi GetWifiById(Guid WifiId);
         void InsertWifi(Wifi wifi);
-        void DeleteWifi(int WifiId);
+        void DeleteWifi(Guid WifiId);
         void UpdateWifi(Wifi wifi);
         void Save();
     }

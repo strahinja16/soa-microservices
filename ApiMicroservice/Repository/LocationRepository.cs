@@ -17,14 +17,14 @@ namespace ApiMicroservice.Repository
             _dbContext = dbContext;
         }
 
-        public void DeleteLocation(int LocationId)
+        public void DeleteLocation(Guid LocationId)
         {
             var product = _dbContext.Locations.Find(LocationId);
             _dbContext.Locations.Remove(product);
             Save();
         }
 
-        public Location GetLocationById(int LocationId)
+        public Location GetLocationById(Guid LocationId)
         {
             return _dbContext.Locations.Find(LocationId);
         }

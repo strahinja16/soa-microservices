@@ -7,9 +7,9 @@ namespace ApiMicroservice.Repository.Interfaces
     public interface IBluetoothRepository
     {
         IEnumerable<Bluetooth> GetBluetooths();
-        Bluetooth GetBluetoothById(int BluetoothId);
+        Bluetooth GetBluetoothById(Guid BluetoothId);
         void InsertBluetooth(Bluetooth bluetooth);
-        void DeleteBluetooth(int BluetoothId);
+        void DeleteBluetooth(Guid BluetoothId);
         void UpdateBluetooth(Bluetooth bluetooth);
         void Save();
     }

@@ -17,14 +17,14 @@ namespace ApiMicroservice.Repository
             _dbContext = dbContext;
         }
 
-        public void DeleteBluetooth(int BluetoothId)
+        public void DeleteBluetooth(Guid BluetoothId)
         {
             var product = _dbContext.Blueteeths.Find(BluetoothId);
             _dbContext.Blueteeths.Remove(product);
             Save();
         }
 
-        public Bluetooth GetBluetoothById(int BluetoothId)
+        public Bluetooth GetBluetoothById(Guid BluetoothId)
         {
             return _dbContext.Blueteeths.Find(BluetoothId);
         }

@@ -17,14 +17,14 @@ namespace ApiMicroservice.Repository
             _dbContext = dbContext;
         }
 
-        public void DeleteWifi(int WifiId)
+        public void DeleteWifi(Guid WifiId)
         {
             var product = _dbContext.Wifis.Find(WifiId);
             _dbContext.Wifis.Remove(product);
             Save();
         }
 
-        public Wifi GetWifiById(int WifiId)
+        public Wifi GetWifiById(Guid WifiId)
         {
             return _dbContext.Wifis.Find(WifiId);
         }

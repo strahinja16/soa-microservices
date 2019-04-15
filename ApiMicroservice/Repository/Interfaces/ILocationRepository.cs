@@ -7,9 +7,9 @@ namespace ApiMicroservice.Repository.Interfaces
     public interface ILocationRepository
     {
         IEnumerable<Location> GetLocations();
-        Location GetLocationById(int LocationId);
+        Location GetLocationById(Guid LocationId);
         void InsertLocation(Location location);
-        void DeleteLocation(int LocationId);
+        void DeleteLocation(Guid LocationId);
         void UpdateLocation(Location location);
         void Save();
     }

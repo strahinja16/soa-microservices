@@ -7,9 +7,9 @@ namespace ApiMicroservice.Repository.Interfaces
     public interface ICallRepository
     {
         IEnumerable<Call> GetCalls();
-        Call GetCallById(int CallId);
+        Call GetCallById(Guid CallId);
         void InsertCall(Call call);
-        void DeleteCall(int CallId);
+        void DeleteCall(Guid CallId);
         void UpdateCall(Call call);
         void Save();
     }

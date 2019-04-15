@@ -7,9 +7,9 @@ namespace ApiMicroservice.Repository.Interfaces
     public interface IApplicationRepository
     {
         IEnumerable<Application> GetApplications();
-        Application GetApplicationById(int ApplicationId);
+        Application GetApplicationById(Guid ApplicationId);
         void InsertApplication(Application application);
-        void DeleteApplication(int ApplicationId);
+        void DeleteApplication(Guid ApplicationId);
         void UpdateApplication(Application application);
         void Save();
     }

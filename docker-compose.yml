@@ -26,4 +26,4 @@ services:
       - "1433:1433"
     environment:
       ACCEPT_EULA: Y
-      SA_PASSWORD: root123123
+      SA_PASSWORD: Root123123

@@ -17,14 +17,14 @@ namespace ApiMicroservice.Repository
             _dbContext = dbContext;
         }
 
-        public void DeleteSMS(int SMSId)
+        public void DeleteSMS(Guid SMSId)
         {
             var product = _dbContext.SMSes.Find(SMSId);
             _dbContext.SMSes.Remove(product);
             Save();
         }
 
-        public SMS GetSMSById(int SMSId)
+        public SMS GetSMSById(Guid SMSId)
         {
             return _dbContext.SMSes.Find(SMSId);
         }

@@ -3,9 +3,9 @@ namespace ApiMicroservice.Model
 {
     public class Application
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string ProcessName { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
+        public string Start { get; set; }
+        public string End { get; set; }
     }
 }

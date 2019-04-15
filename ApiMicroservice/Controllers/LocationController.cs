@@ -29,7 +29,7 @@ namespace ApiMicroservice.Controllers
             return new OkObjectResult(locations);
         }
         [HttpGet("{id}", Name = "GetLocation")]
-        public IActionResult Get(int id)
+        public IActionResult Get(Guid id)
         {
             var location = _locationRepository.GetLocationById(id);
             return new OkObjectResult(location);
@@ -59,7 +59,7 @@ namespace ApiMicroservice.Controllers
             return new NoContentResult();
         }
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
             _locationRepository.DeleteLocation(id);
             return new OkResult();

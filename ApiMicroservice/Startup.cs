@@ -14,6 +14,8 @@ using Microsoft.Extensions.Options;
 using ApiMicroservice.DbContexts;
 using ApiMicroservice.Repository;
 using ApiMicroservice.Repository.Interfaces;
+using ApiMicroservice.Services;
+using ApiMicroservice.Services.DataService;
 
 namespace ApiMicroservice
 {
@@ -30,7 +32,9 @@ namespace ApiMicroservice
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddHostedService<BackgroundService>();
             services.AddDbContext<AppDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
+            services.AddHttpClient();
 
             services.AddTransient<IApplicationRepository, ApplicationRepository>();
             services.AddTransient<IBluetoothRepository, BluetoothRepository>();
@@ -38,6 +42,13 @@ namespace ApiMicroservice
             services.AddTransient<ILocationRepository, LocationRepository>();
             services.AddTransient<ISMSRepository, SMSRepository>();
             services.AddTransient<IWifiRepository, WifiRepository>();
+
+            services.AddScoped<ApplicationDataService>();
+            services.AddScoped<BluetoothDataService>();
+            services.AddScoped<CallDataService>();
+            services.AddScoped<LocationDataService>();
+            services.AddScoped<SMSDataService>();
+            services.AddScoped<WiFiDataService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

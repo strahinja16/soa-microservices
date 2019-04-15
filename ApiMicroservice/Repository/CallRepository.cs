@@ -17,14 +17,14 @@ namespace ApiMicroservice.Repository
             _dbContext = dbContext;
         }
 
-        public void DeleteCall(int CallId)
+        public void DeleteCall(Guid CallId)
         {
             var product = _dbContext.Calls.Find(CallId);
             _dbContext.Calls.Remove(product);
             Save();
         }
 
-        public Call GetCallById(int CallId)
+        public Call GetCallById(Guid CallId)
         {
             return _dbContext.Calls.Find(CallId);
         }

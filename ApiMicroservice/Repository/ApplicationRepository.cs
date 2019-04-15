@@ -17,14 +17,14 @@ namespace ApiMicroservice.Repository
             _dbContext = dbContext;
         }
 
-        public void DeleteApplication(int ApplicationId)
+        public void DeleteApplication(Guid ApplicationId)
         {
             var product = _dbContext.Applications.Find(ApplicationId);
             _dbContext.Applications.Remove(product);
             Save();
         }
 
-        public Application GetApplicationById(int ApplicationId)
+        public Application GetApplicationById(Guid ApplicationId)
         {
             return _dbContext.Applications.Find(ApplicationId);
         }

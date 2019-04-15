@@ -29,7 +29,7 @@ namespace ApiMicroservice.Controllers
             return new OkObjectResult(bluetooths);
         }
         [HttpGet("{id}", Name = "GetBluetooth")]
-        public IActionResult Get(int id)
+        public IActionResult Get(Guid id)
         {
             var bluetooth = _bluetoothRepository.GetBluetoothById(id);
             return new OkObjectResult(bluetooth);
@@ -59,7 +59,7 @@ namespace ApiMicroservice.Controllers
             return new NoContentResult();
         }
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
             _bluetoothRepository.DeleteBluetooth(id);
             return new OkResult();

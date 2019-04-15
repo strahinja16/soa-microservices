@@ -1,10 +1,9 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ApiMicroservice.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,11 +11,10 @@ namespace ApiMicroservice.Migrations
                 name: "Applications",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
                     ProcessName = table.Column<string>(nullable: true),
-                    Start = table.Column<DateTime>(nullable: false),
-                    End = table.Column<DateTime>(nullable: false)
+                    Start = table.Column<string>(nullable: true),
+                    End = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -27,12 +25,11 @@ namespace ApiMicroservice.Migrations
                 name: "Blueteeths",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
                     BondStatus = table.Column<string>(nullable: true),
-                    Time = table.Column<DateTime>(nullable: false)
+                    Time = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -43,11 +40,10 @@ namespace ApiMicroservice.Migrations
                 name: "Calls",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
                     Number = table.Column<string>(nullable: true),
                     Duration = table.Column<float>(nullable: false),
-                    Time = table.Column<DateTime>(nullable: false),
+                    Time = table.Column<string>(nullable: true),
                     Type = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -59,11 +55,11 @@ namespace ApiMicroservice.Migrations
                 name: "Locations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
                     Latitude = table.Column<float>(nullable: false),
-                    Longitude = table.Column<float>(nullable: false),
-                    Time = table.Column<DateTime>(nullable: false),
+                    Longtitude = table.Column<float>(nullable: false),
+                    Altitude = table.Column<float>(nullable: false),
+                    Time = table.Column<string>(nullable: true),
                     Accuracy = table.Column<float>(nullable: false),
                     Provider = table.Column<string>(nullable: true),
                     Speed = table.Column<float>(nullable: false)
@@ -77,11 +73,10 @@ namespace ApiMicroservice.Migrations
                 name: "SMSes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
                     Address = table.Column<string>(nullable: true),
                     Type = table.Column<int>(nullable: false),
-                    Date = table.Column<DateTime>(nullable: false),
+                    Date = table.Column<string>(nullable: true),
                     Body = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true)
                 },
@@ -94,14 +89,13 @@ namespace ApiMicroservice.Migrations
                 name: "Wifis",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
                     SSID = table.Column<string>(nullable: true),
                     BSSID = table.Column<string>(nullable: true),
                     Capabilities = table.Column<string>(nullable: true),
                     Level = table.Column<float>(nullable: false),
                     Frequency = table.Column<float>(nullable: false),
-                    Time = table.Column<DateTime>(nullable: false)
+                    Time = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

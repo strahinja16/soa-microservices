@@ -29,7 +29,7 @@ namespace ApiMicroservice.Controllers
             return new OkObjectResult(wifis);
         }
         [HttpGet("{id}", Name = "GetWifi")]
-        public IActionResult Get(int id)
+        public IActionResult Get(Guid id)
         {
             var wifi = _wifiRepository.GetWifiById(id);
             return new OkObjectResult(wifi);
@@ -59,7 +59,7 @@ namespace ApiMicroservice.Controllers
             return new NoContentResult();
         }
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
             _wifiRepository.DeleteWifi(id);
             return new OkResult();

@@ -7,9 +7,9 @@ namespace ApiMicroservice.Repository.Interfaces
     public interface ISMSRepository
     {
         IEnumerable<SMS> GetSMSes();
-        SMS GetSMSById(int SMSId);
+        SMS GetSMSById(Guid SMSId);
         void InsertSMS(SMS sms);
-        void DeleteSMS(int SMSId);
+        void DeleteSMS(Guid SMSId);
         void UpdateSMS(SMS sms);
         void Save();
     }

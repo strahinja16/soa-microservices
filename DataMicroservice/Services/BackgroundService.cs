@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace DataMicroservice.Services
 {
@@ -34,7 +36,10 @@ namespace DataMicroservice.Services
             string line = streamReader.ReadLine();
             if (line != null)
             {
-                storageService.addItem(line);
+                JObject obj = JObject.Parse(line);
+                JObject cont = (JObject)obj[obj.Properties().ElementAt(0).Name];
+                cont.Add("Id", Guid.NewGuid());
+                storageService.addItem(obj);
             }
         }
 
