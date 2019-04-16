@@ -1,6 +1,23 @@
 version: '3.4'
 
 services:
+  database:
+    image: microsoft/mssql-server-linux
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: Root123123
+
+
+  datamicroservice:
+    image: ${DOCKER_REGISTRY-}datamicroservice
+    ports:
+       - "8001:80"
+    build:
+      context: .
+      dockerfile: DataMicroservice/Dockerfile
+      
   apimicroservice:
     image: ${DOCKER_REGISTRY-}apimicroservice
     ports:
@@ -11,19 +28,3 @@ services:
     build:
       context: .
       dockerfile: ApiMicroservice/Dockerfile
-
-  datamicroservice:
-    image: ${DOCKER_REGISTRY-}datamicroservice
-    ports:
-       - "8001:80"
-    build:
-      context: .
-      dockerfile: DataMicroservice/Dockerfile
-
-  database:
-    image: microsoft/mssql-server-linux
-    ports:
-      - "1433:1433"
-    environment:
-      ACCEPT_EULA: Y
-      SA_PASSWORD: Root123123

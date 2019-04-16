@@ -21,32 +21,19 @@ namespace ApiMicroservice.Services
         private readonly IHttpClientFactory clientFactory;
         private readonly IConfiguration configuration;
         private readonly IServiceProvider serviceProvider;
-        private Timer timer;
-        private int getDataDelay = 30000;
-        public int GetDataDelay
-        {
-            get
-            {
-                return getDataDelay;
-            }
-            set
-            {
-                getDataDelay = value;
-                timer?.Change(0, value);
-            }
-        }
+        private BackgroundTimer backgroundTimer;
 
-        public BackgroundService(IConfiguration configuration, IHttpClientFactory clientFactory, IServiceProvider serviceProvider)
+        public BackgroundService(IConfiguration configuration, IHttpClientFactory clientFactory, IServiceProvider serviceProvider, BackgroundTimer backgroundTimer)
         {
             this.configuration = configuration;
             this.clientFactory = clientFactory;
             this.serviceProvider = serviceProvider;
+            this.backgroundTimer = backgroundTimer;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-
-            timer = new Timer(DoWork, null, 0, GetDataDelay);
+            backgroundTimer.setCallback(DoWork);
 
             return Task.CompletedTask;
         }
@@ -101,22 +88,18 @@ namespace ApiMicroservice.Services
                     }
                 }
             }
-            else
-            {
-
-            }
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            timer?.Change(Timeout.Infinite, 0);
+            backgroundTimer.stopTimer();
 
             return Task.CompletedTask;
         }
 
         public void Dispose()
         {
-            timer?.Dispose();
+            backgroundTimer.Dispose();
         }
     }
 }

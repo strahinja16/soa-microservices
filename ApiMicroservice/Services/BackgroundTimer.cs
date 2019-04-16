@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ApiMicroservice.Services
 {
-    public class BackgroundTimer
+    public class BackgroundTimer: IDisposable
     {
         private Timer timer;
         private int getDataDelay = 30000;
@@ -14,24 +14,29 @@ namespace ApiMicroservice.Services
         {
             get
             {
-                return getDataDelay;
+                return getDataDelay / 1000;
             }
             set
             {
-                getDataDelay = value;
-                timer?.Change(0, value);
+                getDataDelay = value * 1000;
+                timer?.Change(0, value * 1000);
             }
-        }
-
-        public BackgroundTimer()
-        {
-            timer = new Timer(null);
         }
 
         public void setCallback(TimerCallback callback)
         {
-            timer = new Timer(callback, null, 0, GetDataDelay);
+            timer = new Timer(callback, null, 0, getDataDelay);
         }
 
+
+        public void stopTimer()
+        {
+            timer?.Change(Timeout.Infinite, 0);
+        }
+
+        public void Dispose()
+        {
+            timer.Dispose();
+        }
     }
 }

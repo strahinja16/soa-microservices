@@ -49,6 +49,8 @@ namespace ApiMicroservice
             services.AddScoped<LocationDataService>();
             services.AddScoped<SMSDataService>();
             services.AddScoped<WiFiDataService>();
+
+            services.AddSingleton<BackgroundTimer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
