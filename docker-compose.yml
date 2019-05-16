@@ -9,6 +9,14 @@ services:
       ACCEPT_EULA: Y
       SA_PASSWORD: Root123123
 
+  mongostatistic:
+    image: mongo
+    ports:
+    - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: statistic
+      MONGO_INITDB_ROOT_PASSWORD: statisticadmin
+      MONGO_INITDB_ROOT_USERNAME: statisticadmin
 
   datamicroservice:
     image: ${DOCKER_REGISTRY-}datamicroservice
@@ -28,3 +36,15 @@ services:
     build:
       context: .
       dockerfile: ApiMicroservice/Dockerfile
+
+  statisticmicroservice:
+    image: ${DOCKER_REGISTRY-}statisticmicroservice
+    ports:
+       - "8002:80"
+    depends_on:
+      - apimicroservice
+      - mongostatistic
+    build:
+      context: .
+      dockerfile: StatisticMicroservice/Dockerfile
+      
