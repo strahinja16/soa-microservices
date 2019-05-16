@@ -10,7 +10,9 @@ namespace StatisticMicroservice.Repository.Interfaces
         Task<IEnumerable<WifiCapability>> GetWifiCapabilities();
 
         Task InsertWifiCapability(WifiCapability wifiCapability);
-        
+
+        Task<bool> UpdateWifiCapability(WifiCapability wifiCapability);
+
         Task<bool> RemoveWifiCapability(string id);
         
     }

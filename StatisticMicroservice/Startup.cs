@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using StatisticMicroservice.Model;
 using StatisticMicroservice.Repository;
 using StatisticMicroservice.Repository.Interfaces;
@@ -28,7 +30,11 @@ namespace StatisticMicroservice
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                    .AddJsonOptions(options => {
+                        options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                    });
             services.AddHttpClient();
 
             services.Configure<MongoSettings>(options =>
@@ -39,6 +45,8 @@ namespace StatisticMicroservice
                     = Configuration.GetSection("MongoConnection:Database").Value;
             });
             services.AddTransient<IWifiCapabilityRepository, WifiCapabilityRepository>();
+            services.AddTransient<ILocationAccuracyRepository, LocationAccuracyRepository>();
+            services.AddTransient<IAddressCountRepository, AddressCountRepository>();
 
         }
 

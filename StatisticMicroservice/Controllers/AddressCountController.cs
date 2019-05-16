@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using Microsoft.AspNetCore.Mvc;
+using StatisticMicroservice.Model;
+using StatisticMicroservice.Repository;
+using StatisticMicroservice.Repository.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,36 +15,60 @@ namespace StatisticMicroservice.Controllers
     [Route("api/[controller]")]
     public class AddressCountController : Controller
     {
-        // GET: api/values
+        private readonly IAddressCountRepository addressCountRepository;
+        public AddressCountController(IAddressCountRepository addressCountRepository)
+        {
+            this.addressCountRepository = addressCountRepository;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            var addressCounts = addressCountRepository.GetAddressCounts();
+            return new OkObjectResult(addressCounts.Result);
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody] AddressCount addressCount)
         {
+            using (var scope = new TransactionScope())
+            {
+                addressCountRepository.InsertAddressCount(addressCount);
+                scope.Complete();
+                return CreatedAtAction(nameof(Get), addressCount);
+            };
+
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] AddressCount addressCount)
         {
+            if (addressCount != null)
+            {
+                using (var scope = new TransactionScope())
+                {
+                    bool success = await addressCountRepository.UpdateAddressCount(addressCount);
+                    scope.Complete();
+                    if (success)
+                    {
+                        return new OkResult();
+                    }
+                    return BadRequest();
+                }
+            }
+            return new NoContentResult();
         }
 
-        // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
+            bool success = await addressCountRepository.RemoveAddressCount(id);
+            if (success) 
+            {
+                return new OkResult();
+            }
+
+            return BadRequest();
         }
     }
 }

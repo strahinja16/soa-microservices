@@ -52,7 +52,7 @@ namespace StatisticMicroservice.Repository
             {
                 DeleteResult actionResult
                     = await _context.WifiCapabilities.DeleteOneAsync(
-                        Builders<WifiCapability>.Filter.Eq("Id", id));
+                        Builders<WifiCapability>.Filter.Eq("_id", ObjectId.Parse(id)));
 
                 return actionResult.IsAcknowledged
                     && actionResult.DeletedCount > 0;
@@ -62,6 +62,19 @@ namespace StatisticMicroservice.Repository
                 // log or manage the exception
                 throw ex;
             }
+        }
+
+        public async Task<bool> UpdateWifiCapability(WifiCapability wifiCapability)
+        {
+            var filter = Builders<WifiCapability>.Filter.Eq("_id", wifiCapability.Id);
+            ReplaceOneResult result = await _context.WifiCapabilities
+                                                    .ReplaceOneAsync(item => item.Id == wifiCapability.Id,
+                                                                        wifiCapability,
+                                                                        new UpdateOptions { IsUpsert = true });
+        
+
+
+            return result.IsAcknowledged;
         }
     }
 }

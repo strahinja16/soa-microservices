@@ -11,6 +11,8 @@ namespace StatisticMicroservice.Repository.Interfaces
 
         Task InsertLocationAccuracy(LocationAccuracy locationAccuracy);
 
+        Task<bool> UpdateLocationAccuracy(LocationAccuracy locationAccuracy);
+
         Task<bool> RemoveLocationAccuracy(string id);
 
     }

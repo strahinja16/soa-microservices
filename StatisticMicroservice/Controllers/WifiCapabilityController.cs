@@ -25,20 +25,47 @@ namespace StatisticMicroservice.Controllers
         public IActionResult Get()
         {
             var wifiCapabilities = wifiCapabilityRepository.GetWifiCapabilities();
-            return new OkObjectResult(wifiCapabilities);
+            return new OkObjectResult(wifiCapabilities.Result);
         }
 
         [HttpPost]
         public IActionResult Post([FromBody] WifiCapability wifiCapability)
         {
-            return new OkResult();
+            using (var scope = new TransactionScope())
+            {
+                wifiCapabilityRepository.InsertWifiCapability(wifiCapability);
+                scope.Complete();
+                return CreatedAtAction(nameof(Get), wifiCapability);
+            }
+        }
 
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] WifiCapability wifiCapability)
+        {
+            if (wifiCapability != null)
+            {
+                Console.WriteLine(wifiCapability.Id);
+                    bool success = await wifiCapabilityRepository.UpdateWifiCapability(wifiCapability);
+
+                    Console.WriteLine(success);
+                    if (success)
+                    {
+                        return new OkResult();
+                    }
+                    return BadRequest();
+               
+            }
+            return new NoContentResult();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            return new OkResult();
+            bool success = await wifiCapabilityRepository.RemoveWifiCapability(id);
+            if (success) {
+                return new OkResult();
+            }
+            return BadRequest();
         }
     }
 }

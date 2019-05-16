@@ -23,6 +23,22 @@ namespace StatisticMicroservice.DbContext
                 return _database.GetCollection<WifiCapability>("WifiCapability");
             }
         }
+
+        public IMongoCollection<AddressCount> AddressCounts
+        {
+            get
+            {
+                return _database.GetCollection<AddressCount>("AddressCounts");
+            }
+        }
+
+        public IMongoCollection<LocationAccuracy> LocationAccuracies
+        {
+            get
+            {
+                return _database.GetCollection<LocationAccuracy>("LocationAccuracies");
+            }
+        }
     }
 }
 

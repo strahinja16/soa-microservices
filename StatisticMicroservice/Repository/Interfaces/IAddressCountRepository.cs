@@ -11,6 +11,8 @@ namespace StatisticMicroservice.Repository.Interfaces
 
         Task InsertAddressCount(AddressCount addressCount);
 
+        Task<bool> UpdateAddressCount(AddressCount addressCount);
+
         Task<bool> RemoveAddressCount(string id);
 
     }

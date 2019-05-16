@@ -16,7 +16,7 @@ namespace StatisticMicroservice.Services
             this.locationAccuracyRepository = locationAccuracyRepository;
         }
 
-        public void findLocationCountByAccuracy(float accuracy, string time)
+        public void findLocationCountByAccuracy(double accuracy, string time)
         {
             // 1. get locations with http client
             // 2. find all the location records after <time> and filter those with accuracy >= <accuracy> e.g. 0.6

@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using Microsoft.AspNetCore.Mvc;
+using StatisticMicroservice.Model;
+using StatisticMicroservice.Repository;
+using StatisticMicroservice.Repository.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,36 +15,58 @@ namespace StatisticMicroservice.Controllers
     [Route("api/[controller]")]
     public class LocationAccuracyController : Controller
     {
-        // GET: api/values
+        private readonly ILocationAccuracyRepository locationAccuracyRepository;
+        public LocationAccuracyController(ILocationAccuracyRepository locationAccuracyRepository)
+        {
+            this.locationAccuracyRepository = locationAccuracyRepository;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            var locationAccuracies = locationAccuracyRepository.GetLocationAccuracies();
+            return new OkObjectResult(locationAccuracies.Result);
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody] LocationAccuracy locationAccuracy)
         {
+            using (var scope = new TransactionScope())
+            {
+                locationAccuracyRepository.InsertLocationAccuracy(locationAccuracy);
+                scope.Complete();
+                return CreatedAtAction(nameof(Get), locationAccuracy);
+            }
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpPut]
+        public async Task<IActionResult>Put([FromBody] LocationAccuracy locationAccuracy)
         {
+            if (locationAccuracy != null)
+            {
+                using (var scope = new TransactionScope())
+                {
+                    bool success = await locationAccuracyRepository.UpdateLocationAccuracy(locationAccuracy);
+                    scope.Complete();
+                    if (success)
+                    {
+                        return new OkResult();
+                    }
+                    return BadRequest();
+                }
+            }
+            return new NoContentResult();
         }
 
-        // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
+            bool success = await locationAccuracyRepository.RemoveLocationAccuracy(id);
+            if (success)
+            {
+                return new OkResult();
+            }
+            return BadRequest();
         }
     }
 }
