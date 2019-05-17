@@ -1,13 +1,80 @@
-const { Router } = require('express');
+const { ROUTES } = require('../consts');
+const application = require('./application');
+const bluetooth = require('./bluetooth');
+const call = require('./call');
 
-// const applicationProcessCountRouter = require('./applicationProcessCount');
-// const bluetoothBondRouter = require('./bluetoothBond');
-// const callDurationRouter = require('./callDuration');
+const { APPLICATION, BLUETOOTH, CALL } = ROUTES;
 
-const router = Router();
+const applicationRoutes = {
+  prefix: APPLICATION.PREFIX,
+  pin: APPLICATION.PIN,
+  map: {
+    getAll: {
+      GET: true,
+    },
+    create: {
+      GET: true,
+    },
+    update: {
+      GET: true,
+    },
+    remove: {
+      GET: true,
+    },
+  },
+};
 
-// router.use('/application-process-count', applicationProcessCountRouter);
-// router.use('/bluetooth-bond', bluetoothBondRouter);
-// router.use('/call-duration', callDurationRouter);
+const bluetoothRoutes = {
+  prefix: BLUETOOTH.PREFIX,
+  pin: BLUETOOTH.PIN,
+  map: {
+    getAll: {
+      GET: true,
+    },
+    create: {
+      GET: true,
+    },
+    update: {
+      GET: true,
+    },
+    remove: {
+      GET: true,
+    },
+  },
+};
 
-module.exports = router;
+const callRoutes = {
+  prefix: CALL.PREFIX,
+  pin: CALL.PIN,
+  map: {
+    getAll: {
+      GET: true,
+    },
+    create: {
+      GET: true,
+    },
+    update: {
+      GET: true,
+    },
+    remove: {
+      GET: true,
+    },
+  },
+};
+
+const routes = [
+  applicationRoutes,
+  bluetoothRoutes,
+  callRoutes,
+];
+
+const handlers = [
+  ...application,
+  ...bluetooth,
+  ...call,
+];
+
+module.exports = {
+  routes,
+  handlers,
+};

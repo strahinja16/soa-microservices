@@ -7,7 +7,7 @@
   "description": "seneca microservice",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon ./src/bin/www -wL",
+    "start": "nodemon ./src/index.js",
     "seed:up": "node db/seeders up",
     "seed:down": "node db/seeders down"
   },
@@ -27,6 +27,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
@@ -40,7 +41,11 @@
     "mongodb": "^3.1.12",
     "mongoose": "^5.3.6",
     "multer": "^1.4.1",
+    "node-cron": "^2.0.3",
     "nodemon": "^1.18.4",
+    "seneca": "^3.11.0",
+    "seneca-web": "^2.2.1",
+    "seneca-web-adapter-express": "^1.1.2",
     "uuid": "^3.3.2",
     "winston": "^3.0.0"
   },

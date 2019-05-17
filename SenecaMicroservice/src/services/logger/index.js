@@ -4,7 +4,7 @@ const customFormat = format.printf(info => `${info.timestamp} ${info.level}: ${i
 
 module.exports = createLogger({
   format: format.combine(
-    format.colorize(),
+    format.colorize({ all: true }),
     format.timestamp(),
     format.splat(),
     format.simple(),
