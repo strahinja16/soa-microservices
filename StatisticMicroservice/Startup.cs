@@ -15,6 +15,7 @@ using Newtonsoft.Json.Serialization;
 using StatisticMicroservice.Model;
 using StatisticMicroservice.Repository;
 using StatisticMicroservice.Repository.Interfaces;
+using StatisticMicroservice.Services;
 
 namespace StatisticMicroservice
 {
@@ -35,6 +36,7 @@ namespace StatisticMicroservice
                         options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                     });
+            services.AddHostedService<BackgroundService>();
             services.AddHttpClient();
 
             services.Configure<MongoSettings>(options =>
@@ -47,6 +49,12 @@ namespace StatisticMicroservice
             services.AddTransient<IWifiCapabilityRepository, WifiCapabilityRepository>();
             services.AddTransient<ILocationAccuracyRepository, LocationAccuracyRepository>();
             services.AddTransient<IAddressCountRepository, AddressCountRepository>();
+
+            services.AddScoped<AddressCountService>();
+            services.AddScoped<LocationAccuracyService>();
+            services.AddScoped<WifiCapabilityService>();
+
+            services.AddSingleton<BackgroundTimer>();
 
         }
 

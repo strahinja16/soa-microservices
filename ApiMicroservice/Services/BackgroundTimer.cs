@@ -9,7 +9,7 @@ namespace ApiMicroservice.Services
     public class BackgroundTimer: IDisposable
     {
         private Timer timer;
-        private int getDataDelay = 30000;
+        private int getDataDelay = 3000;
         public int GetDataDelay
         {
             get

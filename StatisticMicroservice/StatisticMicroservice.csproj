@@ -12,6 +12,7 @@
     <Folder Include="Repository\Interfaces\" />
     <Folder Include="Services\" />
     <Folder Include="Services\Interfaces\" />
+    <Folder Include="Model\Dto\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -18,14 +18,14 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: statisticadmin
       MONGO_INITDB_ROOT_USERNAME: statisticadmin
 
-  mongoseneca:
-      image: mongo
-      ports:
-      - "27018:27017"
-      environment:
-        MONGO_INITDB_DATABASE: seneca
-        MONGO_INITDB_ROOT_PASSWORD: senecaadmin
-        MONGO_INITDB_ROOT_USERNAME: senecaadmin
+  # mongoseneca:
+  #     image: mongo
+  #     ports:
+  #     - "27018:27017"
+  #     environment:
+  #       MONGO_INITDB_DATABASE: seneca
+  #       MONGO_INITDB_ROOT_PASSWORD: senecaadmin
+  #       MONGO_INITDB_ROOT_USERNAME: senecaadmin
 
   datamicroservice:
     image: ${DOCKER_REGISTRY-}datamicroservice
@@ -57,14 +57,14 @@ services:
       context: .
       dockerfile: StatisticMicroservice/Dockerfile
 
-  senecamicroservice:
-    build: ./SenecaMicroservice
-    ports:
-    - "3000:3000"
-    command: npm start
-    volumes:
-    - ./SenecaMicroservice:/app
-    - /app/node_modules
-    depends_on:
-      - apimicroservice
-      - mongoseneca
+  # senecamicroservice:
+  #   build: ./SenecaMicroservice
+  #   ports:
+  #   - "3000:3000"
+  #   command: npm start
+  #   volumes:
+  #   - ./SenecaMicroservice:/app
+  #   - /app/node_modules
+  #   depends_on:
+  #     - apimicroservice
+  #     - mongoseneca
