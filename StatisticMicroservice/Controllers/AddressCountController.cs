@@ -28,6 +28,14 @@ namespace StatisticMicroservice.Controllers
             return new OkObjectResult(addressCounts.Result);
         }
 
+        [HttpGet("{id}", Name = "GetAddressCount")]
+        public async Task<IActionResult> Get(string id)
+        {
+            var addrCount = await addressCountRepository.GetAddressCountById(id);
+            return new OkObjectResult(addrCount);
+        }
+
+
         [HttpPost]
         public IActionResult Post([FromBody] AddressCount addressCount)
         {

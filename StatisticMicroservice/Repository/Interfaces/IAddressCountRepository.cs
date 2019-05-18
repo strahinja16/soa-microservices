@@ -9,6 +9,8 @@ namespace StatisticMicroservice.Repository.Interfaces
     {
         Task<IEnumerable<AddressCount>> GetAddressCounts();
 
+        Task<AddressCount> GetAddressCountById(string id);
+
         Task InsertAddressCount(AddressCount addressCount);
 
         Task<bool> UpdateAddressCount(AddressCount addressCount);

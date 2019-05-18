@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using StatisticMicroservice.Model;
 using StatisticMicroservice.DbContext;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using StatisticMicroservice.Repository.Interfaces;
+using StatisticMicroservice.Model;
 
 namespace StatisticMicroservice.Repository
 {
@@ -19,12 +19,28 @@ namespace StatisticMicroservice.Repository
             _context = new AppDbContext(settings);
         }
 
+    
         public async Task<IEnumerable<WifiCapability>> GetWifiCapabilities()
         {
             try
             {
                 return await _context.WifiCapabilities
                         .Find(_ => true).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                // log or manage the exception
+                throw ex;
+            }
+        }
+
+        public async Task<WifiCapability> GetWifiCapabilityById(string id)
+        {
+            try
+            {
+                return await _context.WifiCapabilities
+                        .Find(doc => doc.Id == ObjectId.Parse(id))
+                        .FirstOrDefaultAsync();
             }
             catch (Exception ex)
             {

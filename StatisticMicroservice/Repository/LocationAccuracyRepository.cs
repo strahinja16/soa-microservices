@@ -33,6 +33,21 @@ namespace StatisticMicroservice.Repository
             }
         }
 
+        public async Task<LocationAccuracy> GetLocationAccuracyById(string id)
+        {
+            try
+            {
+                return await _context.LocationAccuracies
+                        .Find(doc => doc.Id == ObjectId.Parse(id))
+                        .FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                // log or manage the exception
+                throw ex;
+            }
+        }
+
         public async Task InsertLocationAccuracy(LocationAccuracy locationAccuracy)
         {
             try

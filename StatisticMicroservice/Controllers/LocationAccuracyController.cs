@@ -28,6 +28,13 @@ namespace StatisticMicroservice.Controllers
             return new OkObjectResult(locationAccuracies.Result);
         }
 
+        [HttpGet("{id}", Name = "GetLocationAccuracy")]
+        public async Task<IActionResult> Get(string id)
+        {
+            var locationAccuracy = await locationAccuracyRepository.GetLocationAccuracyById(id);
+            return new OkObjectResult(locationAccuracy);
+        }
+
         [HttpPost]
         public IActionResult Post([FromBody] LocationAccuracy locationAccuracy)
         {

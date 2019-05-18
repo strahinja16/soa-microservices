@@ -19,6 +19,21 @@ namespace StatisticMicroservice.Repository
             _context = new AppDbContext(settings);
         }
 
+        public async Task<AddressCount> GetAddressCountById(string id)
+        {
+            try
+            {
+                return await _context.AddressCounts
+                        .Find(doc => doc.Id == ObjectId.Parse(id))
+                        .FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                // log or manage the exception
+                throw ex;
+            }
+        }
+
         public async Task<IEnumerable<AddressCount>> GetAddressCounts()
         {
             try

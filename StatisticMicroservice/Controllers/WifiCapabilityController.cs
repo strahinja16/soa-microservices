@@ -28,6 +28,13 @@ namespace StatisticMicroservice.Controllers
             return new OkObjectResult(wifiCapabilities.Result);
         }
 
+        [HttpGet("{id}", Name = "GetWifiCapability")]
+        public async Task<IActionResult> Get(string id)
+        {
+            var wifiCapability = await wifiCapabilityRepository.GetWifiCapabilityById(id);
+            return new OkObjectResult(wifiCapability);
+        }
+
         [HttpPost]
         public IActionResult Post([FromBody] WifiCapability wifiCapability)
         {

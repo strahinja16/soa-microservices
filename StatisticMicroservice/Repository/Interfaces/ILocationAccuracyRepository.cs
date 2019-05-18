@@ -9,6 +9,8 @@ namespace StatisticMicroservice.Repository.Interfaces
     {
         Task<IEnumerable<LocationAccuracy>> GetLocationAccuracies();
 
+        Task<LocationAccuracy> GetLocationAccuracyById(string id);
+
         Task InsertLocationAccuracy(LocationAccuracy locationAccuracy);
 
         Task<bool> UpdateLocationAccuracy(LocationAccuracy locationAccuracy);
