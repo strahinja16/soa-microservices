@@ -11,6 +11,7 @@ namespace StatisticMicroservice.Services
     public class AddressCountService : IDataService
     {
         private IAddressCountRepository addressCountRepository;
+        private Random gen = new Random(DateTime.Now.Ticks.GetHashCode());
         private string[] addresses;
 
         private void InitAddresses() 
@@ -24,13 +25,11 @@ namespace StatisticMicroservice.Services
         private DateTime GetRandomDate()
         {
             DateTime start = new DateTime(2013, 1, 1);
-            Random gen = new Random();
-            return start.AddDays(gen.Next(730));
+            return start.AddDays(gen.Next(600));
         }
 
         private string GetRandomAddress()
         {
-            Random gen = new Random();
             return addresses[gen.Next(3)];
         }
 
@@ -50,11 +49,10 @@ namespace StatisticMicroservice.Services
             foreach (JObject obj in data)
             {
                 string objAddress = (string)obj.Property("address").Value;
-                string objDate = (string)obj.Property("date").Value;
-
-                //TO DO: date should be greater than random date
-
-                if (objAddress.Contains(address))
+                string objDateString = (string)obj.Property("date").Value;
+                DateTime objDateTime = DateTime.Parse(objDateString);
+                
+                if (objAddress.Contains(address) && objDateTime.CompareTo(date) > 0)
                 {
                     ++count;
                 }

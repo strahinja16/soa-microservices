@@ -69,8 +69,6 @@ namespace StatisticMicroservice.Services
 
                 using (var scope = serviceProvider.CreateScope())
                 {
-                    Console.WriteLine($"Service {endpoint} {data}");
-
                     IDataService service = null;
 
                     switch (endpoint)

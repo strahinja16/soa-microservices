@@ -11,7 +11,7 @@ namespace StatisticMicroservice.Services
     public class WifiCapabilityService : IDataService
     {
         private IWifiCapabilityRepository wifiCapabilityRepository;
-
+        private Random gen = new Random(DateTime.Now.Ticks.GetHashCode());
         private string[] capabilities;
 
         private void InitCapabilities()
@@ -24,13 +24,11 @@ namespace StatisticMicroservice.Services
         private DateTime GetRandomDate()
         {
             DateTime start = new DateTime(2013, 1, 1);
-            Random gen = new Random();
-            return start.AddDays(gen.Next(730));
+            return start.AddDays(gen.Next(600));
         }
 
         private string GetRandomCapability()
         {
-            Random gen = new Random();
             return capabilities[gen.Next(2)];
         }
 
@@ -49,11 +47,11 @@ namespace StatisticMicroservice.Services
             foreach (JObject obj in data)
             {
                 string objCapabilities = (string)obj.Property("capabilities").Value;
-                string objDate = (string)obj.Property("time").Value;
+                string objDateString = (string)obj.Property("time").Value;
+                objDateString = objDateString.Substring(0, objDateString.Length - 19);
+                DateTime objDateTime = DateTime.Parse(objDateString);
 
-                //TO DO: date should be greater than random date
-
-                if (objCapabilities.Contains(capability))
+                if (objCapabilities.Contains(capability) && objDateTime.CompareTo(date) > 0)
                 {
                     ++count;
                 }

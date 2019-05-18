@@ -11,6 +11,7 @@ namespace StatisticMicroservice.Services
     public class LocationAccuracyService : IDataService
     {
         private ILocationAccuracyRepository locationAccuracyRepository;
+        private Random gen = new Random(DateTime.Now.Ticks.GetHashCode());
 
         public LocationAccuracyService(ILocationAccuracyRepository locationAccuracyRepository)
         {
@@ -20,14 +21,12 @@ namespace StatisticMicroservice.Services
         private DateTime GetRandomDate()
         {
             DateTime start = new DateTime(2013, 1, 1);
-            Random gen = new Random();
-            return start.AddDays(gen.Next(730));
+            return start.AddDays(gen.Next(600));
         }
 
         private double GetRandomAccuracy()
         {
-            Random gen = new Random();
-            return gen.Next(10) / 10;
+            return gen.Next(100);
         }
 
         public void DoWork(IEnumerable<JObject> data)
@@ -39,11 +38,10 @@ namespace StatisticMicroservice.Services
             foreach (JObject obj in data)
             {
                 double objAccuracy = (double)obj.Property("accuracy").Value;
-                string objDate = (string)obj.Property("time").Value;
+                string objDateString = (string)obj.Property("time").Value;
+                DateTime objDateTime = DateTime.Parse(objDateString);
 
-                //TO DO: date should be greater than random date
-
-                if (objAccuracy >= accuracy)
+                if (objAccuracy >= accuracy && objDateTime.CompareTo(date) > 0)
                 {
                     ++count;
                 }
@@ -57,7 +55,6 @@ namespace StatisticMicroservice.Services
                 Time = date.ToString("dd-MM-yyyy HH:mm")
             };
 
-            Console.WriteLine(locationAccuracy);
             this.locationAccuracyRepository.InsertLocationAccuracy(locationAccuracy);
         }
     }
