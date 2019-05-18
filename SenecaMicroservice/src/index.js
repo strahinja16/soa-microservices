@@ -35,6 +35,7 @@ const config = {
   context: app,
   routes,
   adapter: require('seneca-web-adapter-express'),
+  options: { parseBody: false },
 };
 
 handlers.forEach(({ role, handler }) => seneca.add(role, handler));
@@ -43,7 +44,6 @@ seneca.use(web, config);
 seneca.ready(() => {
   app.set('port', port);
   app.use('/test', async (req, res) => {
-
     res.send({ data: 'ASD' });
   });
 
@@ -52,7 +52,7 @@ seneca.ready(() => {
   server.listen(port, () => {
     console.log('listening on port 3000');
 
-    cron.schedule('* * * * *', async () => {
+    cron.schedule('*/3 * * * *', async () => {
       await bluetoothTask();
       await applicationTask();
       await callTask();

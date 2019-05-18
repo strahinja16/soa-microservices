@@ -16,8 +16,8 @@ module.exports = async () => {
     const timeAsMoment = moment(time, dateFormat);
 
     if (compareTime.isBefore(timeAsMoment)
-      && bondStatus
-      && bondStatus.includes(compareBondStatus)
+      && !bondStatus
+      // && bondStatus.includes(compareBondStatus)
     ) {
       count++;
     }

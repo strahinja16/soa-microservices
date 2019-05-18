@@ -12,14 +12,17 @@ const applicationRoutes = {
     getAll: {
       GET: true,
     },
-    create: {
+    getOne: {
       GET: true,
+    },
+    create: {
+      POST: true,
     },
     update: {
-      GET: true,
+      PUT: true,
     },
     remove: {
-      GET: true,
+      DELETE: true,
     },
   },
 };
@@ -31,14 +34,17 @@ const bluetoothRoutes = {
     getAll: {
       GET: true,
     },
-    create: {
+    getOne: {
       GET: true,
+    },
+    create: {
+      POST: true,
     },
     update: {
-      GET: true,
+      PUT: true,
     },
     remove: {
-      GET: true,
+      DELETE: true,
     },
   },
 };
@@ -50,14 +56,17 @@ const callRoutes = {
     getAll: {
       GET: true,
     },
-    create: {
+    getOne: {
       GET: true,
+    },
+    create: {
+      POST: true,
     },
     update: {
-      GET: true,
+      PUT: true,
     },
     remove: {
-      GET: true,
+      DELETE: true,
     },
   },
 };

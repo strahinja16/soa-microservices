@@ -1,58 +1,86 @@
+const logger = require('services/logger');
 const { ApplicationProcessCount } = require('models');
 
-const getAll = async (arg, done) => {
-  const apps = await ApplicationProcessCount.find({});
+const getAll = async (req, res) => {
+  try {
+    const apps = await ApplicationProcessCount.find({});
 
-  done(null, { apps });
-};
-
-const create = async (arg, done) => {
-  const app = new ApplicationProcessCount({
-    ProcessName: 'test',
-    Count: 15,
-    Start: '1-1-2017 12:30',
-  });
-
-  await app.save();
-
-  done(null, { app });
-};
-
-const update = async (arg, done) => {
-  const id = '5cdeed4b1825af2db99833de';
-  const body = {
-    Count: 15,
-  };
-  const success = await ApplicationProcessCount.findByIdAndUpdate(id,
-    {
-      $set: {
-        ...body,
-      },
-    },
-    {
-      new: true, useFindAndModify: false,
-    });
-
-  if (success) {
-    done(null, { message: 'success' });
-  } else {
-    done({ message: 'fail ' }, {});
+    res(null, { apps });
+  } catch (e) {
+    logger.log(e.toString());
   }
 };
 
-const remove = async (arg, done) => {
-  const id = '5cdee9be0ed76f00ec3e2b53';
+const getOne = async (req, res) => {
+  try {
+    const { args: { query: { id } } } = req;
+    const app = await ApplicationProcessCount.findById(id);
 
-  const app = await ApplicationProcessCount
-    .findOne({ _id: id });
+    res(null, { app });
+  } catch (e) {
+    logger.log(e.toString());
+  }
+};
 
-  await app.remove();
+const create = async (req, res) => {
+  try {
+    const { args: { body } } = req;
 
-  done(null, { app });
+    const app = new ApplicationProcessCount({
+      ...body,
+    });
+
+    await app.save();
+
+    res(null, { app });
+  } catch (e) {
+    logger.log(e.toString());
+  }
+};
+
+const update = async (req, res) => {
+  try {
+    const { args: { body } } = req;
+    const { id, ...updatedBody } = body;
+
+    const success = await ApplicationProcessCount.findByIdAndUpdate(id,
+      {
+        $set: {
+          ...updatedBody,
+        },
+      },
+      {
+        new: true, useFindAndModify: false,
+      });
+
+    if (success) {
+      res(null, { message: 'success' });
+    } else {
+      res({ message: 'fail ' }, {});
+    }
+  } catch (e) {
+    logger.log(e.toString());
+  }
+};
+
+const remove = async (req, res) => {
+  try {
+    const { args: { body: { id } } } = req;
+
+    const app = await ApplicationProcessCount
+      .findOne({ _id: id });
+
+    await app.remove();
+
+    res(null, { app });
+  } catch (e) {
+    logger.log(e.toString());
+  }
 };
 
 module.exports = [
   { role: 'role:application,cmd:getAll', handler: getAll },
+  { role: 'role:application,cmd:getOne', handler: getOne },
   { role: 'role:application,cmd:create', handler: create },
   { role: 'role:application,cmd:update', handler: update },
   { role: 'role:application,cmd:remove', handler: remove },

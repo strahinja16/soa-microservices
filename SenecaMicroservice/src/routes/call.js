@@ -1,58 +1,87 @@
 const { CallDuration } = require('models');
+const logger = require('services/logger');
 
-const getAll = async (arg, done) => {
-  const calls = await CallDuration.find({});
+const getAll = async (req, res) => {
+  try {
+    const calls = await CallDuration.find({});
 
-  done(null, { calls });
-};
-
-const create = async (arg, done) => {
-  const call = new CallDuration({
-    Duration: 42,
-    Count: 15,
-    Time: '1-1-2017 12:30',
-  });
-
-  await call.save();
-
-  done(null, { call });
-};
-
-const update = async (arg, done) => {
-  const id = '5cdefd34cc630d01dfa1c9af';
-  const body = {
-    Count: 24,
-  };
-  const success = await CallDuration.findByIdAndUpdate(id,
-    {
-      $set: {
-        ...body,
-      },
-    },
-    {
-      new: true, useFindAndModify: false,
-    });
-
-  if (success) {
-    done(null, { message: 'success' });
-  } else {
-    done({ message: 'fail ' }, {});
+    console.log(req);
+    res(null, { calls });
+  } catch (e) {
+    logger.log(e.toString());
   }
 };
 
-const remove = async (arg, done) => {
-  const id = '5cdefd34cc630d01dfa1c9af';
+const getOne = async (req, res) => {
+  try {
+    const { args: { query: { id } } } = req;
+    const call = await CallDuration.findById(id);
 
-  const call = await CallDuration
-    .findOne({ _id: id });
+    res(null, { call });
+  } catch (e) {
+    logger.log(e.toString());
+  }
+};
 
-  await call.remove();
+const create = async (req, res) => {
+  try {
+    const { args: { body } } = req;
 
-  done(null, { call });
+    const call = new CallDuration({
+      ...body,
+    });
+
+    await call.save();
+
+    res(null, { call });
+  } catch (e) {
+    logger.log(e.toString());
+  }
+};
+
+const update = async (req, res) => {
+  try {
+    const { args: { body } } = req;
+    const { id, ...updatedBody } = body;
+
+    const success = await CallDuration.findByIdAndUpdate(id,
+      {
+        $set: {
+          ...updatedBody,
+        },
+      },
+      {
+        new: true, useFindAndModify: false,
+      });
+
+    if (success) {
+      res(null, { message: 'success' });
+    } else {
+      res({ message: 'fail ' }, {});
+    }
+  } catch (e) {
+    logger.log(e.toString());
+  }
+};
+
+const remove = async (req, res) => {
+  try {
+    const { args: { body: { id } } } = req;
+
+    const call = await CallDuration
+      .findOne({ _id: id });
+
+    await call.remove();
+
+    res(null, { call });
+  } catch (e) {
+    logger.log(e.toString());
+  }
 };
 
 module.exports = [
   { role: 'role:call,cmd:getAll', handler: getAll },
+  { role: 'role:call,cmd:getOne', handler: getOne },
   { role: 'role:call,cmd:create', handler: create },
   { role: 'role:call,cmd:update', handler: update },
   { role: 'role:call,cmd:remove', handler: remove },
