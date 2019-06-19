@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const logger = require('services/logger');
 const { db } = require('config');
 
 module.exports = () => {
@@ -17,5 +16,5 @@ module.exports = () => {
         authSource: 'admin',
       },
     )
-    .catch(ex => logger.log(ex));
+    .catch(ex => console.log(ex));
 };

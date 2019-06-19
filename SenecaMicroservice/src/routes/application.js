@@ -7,7 +7,7 @@ const getAll = async (req, res) => {
 
     res(null, { apps });
   } catch (e) {
-    logger.log(e.toString());
+    console.log(e.toString());
   }
 };
 
@@ -18,7 +18,7 @@ const getOne = async (req, res) => {
 
     res(null, { app });
   } catch (e) {
-    logger.log(e.toString());
+    console.log(e.toString());
   }
 };
 
@@ -34,7 +34,7 @@ const create = async (req, res) => {
 
     res(null, { app });
   } catch (e) {
-    logger.log(e.toString());
+    console.log(e.toString());
   }
 };
 
@@ -59,7 +59,7 @@ const update = async (req, res) => {
       res({ message: 'fail ' }, {});
     }
   } catch (e) {
-    logger.log(e.toString());
+    console.log(e.toString());
   }
 };
 
@@ -74,7 +74,7 @@ const remove = async (req, res) => {
 
     res(null, { app });
   } catch (e) {
-    logger.log(e.toString());
+    console.log(e.toString());
   }
 };
 

@@ -1,16 +1,16 @@
-const { createLogger, format, transports } = require('winston');
-
-const customFormat = format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`);
-
-module.exports = createLogger({
-  format: format.combine(
-    format.colorize({ all: true }),
-    format.timestamp(),
-    format.splat(),
-    format.simple(),
-    customFormat,
-  ),
-  transports: [
-    new transports.Console(),
-  ],
-});
+// const { createLogger, format, transports } = require('winston');
+//
+// const customFormat = format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`);
+//
+// module.exports = createLogger({
+//   format: format.combine(
+//     format.colorize({ all: true }),
+//     format.timestamp(),
+//     format.splat(),
+//     format.simple(),
+//     customFormat,
+//   ),
+//   transports: [
+//     new transports.Console(),
+//   ],
+// });

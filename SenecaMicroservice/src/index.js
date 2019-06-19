@@ -6,7 +6,6 @@ const seneca = require('seneca')();
 const web = require('seneca-web');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const logger = require('services/logger');
 const { port } = require('config');
 require('models');
 require('services/db')();
@@ -24,10 +23,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 if (process.env.NODE_ENV === 'development') {
-  app.use((req, res, next) => {
-    logger.info(`${req.method}: ${req.url}`);
-    next();
-  });
   require('mongoose').set('debug', true).set('useFindAndModify', false);
 }
 
