@@ -13,12 +13,12 @@ const AddressCounts = ({ list }) => {
     'Updated at': 'updatedAt',
   };
   const data = list.map(({
-    _id, Date, Address, Count, createdAt, updatedAt,
+    _id, date, address, count, createdAt, updatedAt,
   }) => ({
     id: _id,
     Date: moment(Date).format('MM-DD-YYYY'),
-    Address,
-    Count,
+    Address: address,
+    Count: count,
     createdAt: moment(createdAt).format('MM-DD-YYYY'),
     updatedAt: moment(updatedAt).format('MM-DD-YYYY'),
   }));

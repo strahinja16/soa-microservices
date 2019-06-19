@@ -27,7 +27,8 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
-        API_URL: JSON.stringify(process.env.API_URL || 'http://localhost:3000/'),
+        STATISTIC_MICRO: JSON.stringify(process.env.STATISTIC_MICRO || 'http://localhost:8002'),
+        SENECA_MICRO: JSON.stringify(process.env.SENECA_MICRO || 'http://localhost:3000'),
       },
     }),
 

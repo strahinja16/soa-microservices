@@ -13,12 +13,12 @@ const LocationAccuracies = ({ list }) => {
     'Updated at': 'updatedAt',
   };
   const data = list.map(({
-    _id, Time, Accuracy, Count, createdAt, updatedAt,
+    _id, time, accuracy, count, createdAt, updatedAt,
   }) => ({
     id: _id,
-    Time: moment(Time).format('MM-DD-YYYY'),
-    Accuracy,
-    Count,
+    Time: moment(time).format('MM-DD-YYYY'),
+    Accuracy: accuracy,
+    Count: count,
     createdAt: moment(createdAt).format('MM-DD-YYYY'),
     updatedAt: moment(updatedAt).format('MM-DD-YYYY'),
   }));

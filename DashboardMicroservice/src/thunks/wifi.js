@@ -3,8 +3,7 @@ import { setWifis } from '../reducers/wifi';
 
 export function getWifis() {
   return dispatch => getWifisApi()
-    .then(({ data }) => data)
-    .then((payload) => {
-      dispatch(setWifis(payload));
+    .then(({ data }) => {
+      dispatch(setWifis(data));
     });
 }

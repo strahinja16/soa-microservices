@@ -3,8 +3,8 @@ import { setLocations } from '../reducers/location';
 
 export function getLocations() {
   return dispatch => getLocationsApi()
-    .then(({ data }) => data)
-    .then((payload) => {
-      dispatch(setLocations(payload));
-    });
+    .then(({ data }) => {
+      dispatch(setLocations(data));
+    })
+    .catch(e => console.log(e.toString()));
 }

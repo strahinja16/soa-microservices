@@ -13,15 +13,16 @@ const WifiCapabilities = ({ list }) => {
     'Updated at': 'updatedAt',
   };
   const data = list.map(({
-    _id, Time, Capability, Count, createdAt, updatedAt,
+    _id, time, capability, count, createdAt, updatedAt,
   }) => ({
     id: _id,
-    Time: moment(Time).format('MM-DD-YYYY'),
-    Capability,
-    Count,
+    Time: moment(time).format('MM-DD-YYYY'),
+    Capability: capability,
+    Count: count,
     createdAt: moment(createdAt).format('MM-DD-YYYY'),
     updatedAt: moment(updatedAt).format('MM-DD-YYYY'),
   }));
+
   return <Table columns={columns} data={data} />;
 };
 

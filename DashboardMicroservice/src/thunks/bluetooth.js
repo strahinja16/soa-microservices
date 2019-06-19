@@ -3,7 +3,7 @@ import { setBluetooths } from '../reducers/bluetooth';
 
 export function getBluetooths() {
   return dispatch => getBluetoothsApi()
-    .then(({ blues }) => blues)
+    .then(({ data: { blues } }) => blues)
     .then((payload) => {
       dispatch(setBluetooths(payload));
     });
