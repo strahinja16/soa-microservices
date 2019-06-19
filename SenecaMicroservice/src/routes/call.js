@@ -5,7 +5,6 @@ const getAll = async (req, res) => {
   try {
     const calls = await CallDuration.find({});
 
-    console.log(req);
     res(null, { calls });
   } catch (e) {
     console.log(e.toString());
