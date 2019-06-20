@@ -4,7 +4,7 @@ const moment = require('moment');
 const { BluetoothBond } = require('models');
 const { getBluetooth } = require('../../api');
 
-module.exports = async () => {
+module.exports = async (mqttClient) => {
   const compareTime = moment().subtract(6, 'years');
   const compareBondStatus = 'bonded';
   const dateFormat = 'LLLL';
@@ -29,5 +29,6 @@ module.exports = async () => {
     Time: compareTime.format(dateFormat),
   });
 
+  mqttClient.publish('bluetooth', JSON.stringify(bluetoothBond));
   await bluetoothBond.save();
 };

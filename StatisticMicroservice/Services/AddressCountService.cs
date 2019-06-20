@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using StatisticMicroservice.Model;
 using StatisticMicroservice.Repository.Interfaces;
@@ -13,6 +14,14 @@ namespace StatisticMicroservice.Services
         private IAddressCountRepository addressCountRepository;
         private Random gen = new Random(DateTime.Now.Ticks.GetHashCode());
         private string[] addresses;
+        private MqttService mqttService;
+
+        public AddressCountService(IAddressCountRepository addressCountRepository, MqttService mqttService)
+        {
+            this.addressCountRepository = addressCountRepository;
+            this.mqttService = mqttService;
+            this.InitAddresses();
+        }
 
         private void InitAddresses() 
         {
@@ -31,13 +40,6 @@ namespace StatisticMicroservice.Services
         private string GetRandomAddress()
         {
             return addresses[gen.Next(3)];
-        }
-
-
-        public AddressCountService(IAddressCountRepository addressCountRepository)
-        {
-            this.addressCountRepository = addressCountRepository;
-            this.InitAddresses();
         }
 
         public void DoWork(IEnumerable<JObject> data)
@@ -67,6 +69,7 @@ namespace StatisticMicroservice.Services
             };
 
             this.addressCountRepository.InsertAddressCount(addressCount);
+            mqttService.PublishMessage("address", JsonConvert.SerializeObject(addressCount));
         }
     }
 }

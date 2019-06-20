@@ -4,7 +4,7 @@ const moment = require('moment');
 const { ApplicationProcessCount } = require('models');
 const { getApplications } = require('../../api');
 
-module.exports = async () => {
+module.exports = async (mqttClient) => {
   const compareTime = moment().subtract(6, 'years');
   const compareProcessName = 'com.android.mms';
   const dateFormat = 'DD-MM-YYYY  HH:mm:ss';
@@ -25,5 +25,6 @@ module.exports = async () => {
     Start: compareTime.format(dateFormat),
   });
 
+  mqttClient.publish('application', JSON.stringify(applicationProcessCount));
   await applicationProcessCount.save();
 };

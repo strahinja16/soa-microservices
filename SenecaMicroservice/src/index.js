@@ -6,12 +6,13 @@ const seneca = require('seneca')();
 const web = require('seneca-web');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { port } = require('config');
+const { port, mqttUrl } = require('config');
 require('models');
 require('services/db')();
 const { routes, handlers } = require('./routes');
 const cron = require('node-cron');
 const { applicationTask, bluetoothTask, callTask } = require('./services/background-tasks');
+const mqtt = require('mqtt');
 
 const app = express();
 
@@ -36,6 +37,11 @@ const config = {
 handlers.forEach(({ role, handler }) => seneca.add(role, handler));
 seneca.use(web, config);
 
+const client = mqtt.connect(mqttUrl);
+client.on('connect', () => {
+    console.log('CONNECTED');
+});
+
 seneca.ready(() => {
   app.set('port', port);
   app.use('/test', async (req, res) => {
@@ -48,9 +54,9 @@ seneca.ready(() => {
     console.log('listening on port 3000');
 
     cron.schedule('*/3 * * * *', async () => {
-      await bluetoothTask();
-      await applicationTask();
-      await callTask();
+        await bluetoothTask(client);
+        await applicationTask(client);
+        await callTask(client);
     });
   });
 });
