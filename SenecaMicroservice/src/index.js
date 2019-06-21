@@ -39,7 +39,7 @@ seneca.use(web, config);
 
 const client = mqtt.connect(mqttUrl);
 client.on('connect', () => {
-    console.log('CONNECTED');
+  console.log('CONNECTED');
 });
 
 seneca.ready(() => {
@@ -53,10 +53,10 @@ seneca.ready(() => {
   server.listen(port, () => {
     console.log('listening on port 3000');
 
-    cron.schedule('*/3 * * * *', async () => {
-        await bluetoothTask(client);
-        await applicationTask(client);
-        await callTask(client);
+    cron.schedule('* * * * *', async () => {
+      await bluetoothTask(client);
+      await applicationTask(client);
+      await callTask(client);
     });
   });
 });

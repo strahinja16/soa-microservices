@@ -8,4 +8,4 @@ const pusher = new Pusher({
   encrypted: true,
 });
 
-export default pusher;
+module.exports = pusher;

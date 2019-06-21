@@ -19,6 +19,7 @@ export default handleActions(
       return state.set('bluetooths', payload);
     },
     [ADD_BLUETOOTH_ACTION](state, { payload }) {
+      console.log(payload);
       return state.set('bluetooths', state.get('bluetooths').concat(payload));
     },
   },

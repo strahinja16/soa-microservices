@@ -10,7 +10,7 @@ class PusherService {
   subscribe(channel, event, callback) {
     this.pusher
       .subscribe(channel)
-      .bind(event, ({ data }) => callback(data));
+      .bind(event, (data) => callback(data));
   }
 
   unsubscribe(channel) {
