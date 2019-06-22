@@ -84,8 +84,6 @@ namespace StatisticMicroservice.Repository
             var filter = Builders<AddressCount>.Filter.Eq("_id", addressCount.Id);
             ReplaceOneResult result = await _context.AddressCounts.ReplaceOneAsync(filter, addressCount);
 
-            Console.WriteLine(result);
-
             return result.IsAcknowledged;
         }
     }

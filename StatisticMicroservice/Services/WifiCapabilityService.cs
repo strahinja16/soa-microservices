@@ -69,7 +69,6 @@ namespace StatisticMicroservice.Services
             };
 
             this.wifiCapabilityRepository.InsertWifiCapability(wifiCapability);
-            Console.WriteLine(JsonConvert.SerializeObject(wifiCapability));
             mqttService.PublishMessage("wifi", JsonConvert.SerializeObject(wifiCapability));
         }
     }

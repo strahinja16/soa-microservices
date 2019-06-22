@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10ce696f-833a-4a13-ae53-e7aba6e091a8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../DashboardMicroservice/src/pages/Dashboard/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../DashboardMicroservice/src/pages/Dashboard/index.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DashboardMicroservice/src/reducers/bluetooth.js" beforeDir="false" afterPath="$PROJECT_DIR$/../DashboardMicroservice/src/reducers/bluetooth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DashboardMicroservice/src/services/pusher.js" beforeDir="false" afterPath="$PROJECT_DIR$/../DashboardMicroservice/src/services/pusher.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/pusher/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/pusher/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/pusher/pusher.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/pusher/pusher.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SenecaMicroservice/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../SenecaMicroservice/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SenecaMicroservice/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../SenecaMicroservice/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../StatisticMicroservice/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/../StatisticMicroservice/appsettings.Development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../StatisticMicroservice/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../StatisticMicroservice/appsettings.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -70,7 +65,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="590">
@@ -124,7 +119,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.env">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="26">
@@ -266,12 +261,12 @@
       <option name="presentableId" value="Default" />
       <updated>1560969338954</updated>
       <workItem from="1560969340694" duration="2086000" />
-      <workItem from="1561113151443" duration="1826000" />
+      <workItem from="1561113151443" duration="2697000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3912000" />
+    <option name="totallyTimeSpent" value="4783000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="143" y="95" width="1640" height="999" extended-state="0" />
@@ -369,13 +364,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="1" column="33" lean-forward="true" selection-start-line="1" selection-start-column="33" selection-end-line="1" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -393,6 +381,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="590">
           <caret line="45" column="12" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="1" column="33" lean-forward="true" selection-start-line="1" selection-start-column="33" selection-end-line="1" selection-end-column="33" />
         </state>
       </provider>
     </entry>

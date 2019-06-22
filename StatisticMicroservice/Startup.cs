@@ -57,6 +57,11 @@ namespace StatisticMicroservice
             services.AddSingleton<BackgroundTimer>();
 
             services.AddSingleton<MqttService>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOrigin",
+                    builder => builder.AllowAnyOrigin());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,6 +76,7 @@ namespace StatisticMicroservice
                 app.UseHsts();
             }
 
+            app.UseCors();
             app.UseHttpsRedirection();
             app.UseMvc();
         }
