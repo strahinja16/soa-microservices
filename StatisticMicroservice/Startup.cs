@@ -59,8 +59,11 @@ namespace StatisticMicroservice
             services.AddSingleton<MqttService>();
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowOrigin",
-                    builder => builder.AllowAnyOrigin());
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials() );
             });
         }
 

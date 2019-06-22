@@ -1,12 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const logger = require('services/logger');
+const logger = require('./services/logger');
 const mqtt = require('mqtt');
-const config = require('config');
+const config = require('./config');
 const {
   addApplication, addAddress, addBluetooth, addLocation, addWifi, addCall,
-} = require('services/pusher');
+} = require('./services/pusher');
 const router = require('./routes');
 
 const app = express();
