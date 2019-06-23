@@ -79,7 +79,7 @@ namespace StatisticMicroservice
                 app.UseHsts();
             }
 
-            app.UseCors();
+            app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
             app.UseMvc();
         }

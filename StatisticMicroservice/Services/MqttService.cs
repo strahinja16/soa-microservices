@@ -13,19 +13,12 @@ namespace StatisticMicroservice.Services
         {
             var factory = new MqttFactory();
             Client = factory.CreateMqttClient();
-            var options = new MqttClientOptionsBuilder().WithClientId("Statistics-microservice").WithTcpServer(configuration.GetSection("MqttUrl").Value, 1883).Build();
-            try 
-            {
-                Client.ConnectAsync(options);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("MQTT CONNECT EXCEPTION");
-                Console.WriteLine(e.Message);
-            }
+            var options = new MqttClientOptionsBuilder().WithTcpServer(configuration.GetSection("MqttUrl").Value, 1883).WithCleanSession().Build();
+
+            Client.ConnectAsync(options).Wait();
         }
 
-        async public void PublishMessage(string topic, string data)
+        public void PublishMessage(string topic, string data)
         {
             if (!Client.IsConnected)
             {
@@ -33,15 +26,7 @@ namespace StatisticMicroservice.Services
             }
             else
             {
-                Console.WriteLine("PUBLISH MESSAGE");
-                var message = new MqttApplicationMessageBuilder()
-                    .WithTopic(topic)
-                    .WithPayload(data)
-                    //.WithExactlyOnceQoS()
-                    //.WithRetainFlag()
-                    .Build();
-
-                await Client.PublishAsync(message);
+                Client.PublishAsync(topic, data).Wait();
             }
         }
     }
