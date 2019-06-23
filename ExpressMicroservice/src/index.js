@@ -61,7 +61,6 @@ client.on('connect', () => {
         addApplication(data);
         break;
     }
-    client.end();
   });
 });
 
