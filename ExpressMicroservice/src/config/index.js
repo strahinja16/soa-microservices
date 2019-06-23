@@ -1,11 +1,14 @@
 require('dotenv').config();
 
 const {
-  PORT,
+    PORT,
+    MQTT_URL,
+
 } = process.env;
 
 const port = PORT || 3002;
 
 module.exports = {
-  port,
+    port,
+    mqttUrl: MQTT_URL,
 };

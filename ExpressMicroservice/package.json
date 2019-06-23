@@ -1,5 +1,5 @@
 {
-  "name": "releaser-api",
+  "name": "soa-api",
   "version": "0.0.1",
   "engines": {
     "node": ">=10.0"
@@ -7,16 +7,7 @@
   "description": "API entrypoint for application",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon ./src/bin/www",
-    "test": "node_modules/.bin/jest tests --projects=tests --runInBand --forceExit --verbose",
-    "format": "node_modules/.bin/prettier-eslint --write",
-    "precommit": "node_modules/.bin/lint-staged",
-    "migrate:undo": "node_modules/.bin/sequelize db:migrate:undo:all",
-    "migrate": "node_modules/.bin/sequelize db:migrate",
-    "db:reset": "npm run migrate:undo && npm run migrate",
-    "db:seed": "node_modules/.bin/sequelize db:seed:all",
-    "db:seed:undo": "node_modules/.bin/sequelize db:seed:undo:all",
-    "db:build": "npm run db:reset && npm run db:seed"
+    "start": "nodemon ./src/bin/www"
   },
   "_moduleAliases": {
     "root": "./src",
@@ -61,19 +52,11 @@
     ]
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/alexa026/releaser-api.git"
+    "type": "git"
   },
-  "author": "Aleksa Stankovic <lexaa931@gmail.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/alexa026/releaser-api/issues"
-  },
-  "homepage": "https://github.com/alexa026/releaser-api#readme",
   "dependencies": {
     "axios": "^0.18.0",
-    "bcrypt": "^3.0.2",
-    "blueimp-md5": "^2.10.0",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
@@ -85,11 +68,8 @@
     "lodash": "^4.17.10",
     "module-alias": "^2.1.0",
     "moment": "^2.22.2",
-    "pg": "^7.4.3",
-    "pg-hstore": "^2.3.2",
+    "mqtt": "^3.0.0",
     "pusher": "^2.2.0",
-    "sequelize": "^4.38.0",
-    "sequelize-cli": "^4.0.0",
     "winston": "^3.0.0",
     "winston-transport": "^4.2.0"
   },

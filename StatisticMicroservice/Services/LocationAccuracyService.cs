@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using StatisticMicroservice.Model;
 using StatisticMicroservice.Repository.Interfaces;
@@ -12,10 +13,12 @@ namespace StatisticMicroservice.Services
     {
         private ILocationAccuracyRepository locationAccuracyRepository;
         private Random gen = new Random(DateTime.Now.Ticks.GetHashCode());
+        private MqttService mqttService;
 
-        public LocationAccuracyService(ILocationAccuracyRepository locationAccuracyRepository)
+        public LocationAccuracyService(ILocationAccuracyRepository locationAccuracyRepository, MqttService mqttService)
         {
             this.locationAccuracyRepository = locationAccuracyRepository;
+            this.mqttService = mqttService;
         }
 
         private DateTime GetRandomDate()
@@ -56,6 +59,7 @@ namespace StatisticMicroservice.Services
             };
 
             this.locationAccuracyRepository.InsertLocationAccuracy(locationAccuracy);
+            mqttService.PublishMessage("location", JsonConvert.SerializeObject(locationAccuracy));
         }
     }
 }

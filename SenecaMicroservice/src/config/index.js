@@ -9,6 +9,7 @@ const {
   MONGODB_DATABASE,
   API_MICROSERVICE_DOMAIN,
   APP_DOMAIN,
+  MQTT_URL,
 } = process.env;
 
 const port = PORT || 3000;
@@ -25,5 +26,6 @@ module.exports = {
     user: MONGODB_USER,
     password: MONGODB_PASSWORD,
     database: MONGODB_DATABASE,
-  },
+    },
+    mqttUrl: MQTT_URL,
 };

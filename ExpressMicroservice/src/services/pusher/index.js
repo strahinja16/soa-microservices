@@ -1,4 +1,4 @@
-import pusher from './pusher';
+const pusher = require('./pusher');
 
 const addApplication = (application) => {
   pusher.trigger('application', 'add', application);
@@ -24,7 +24,7 @@ const addCall = (call) => {
   pusher.trigger('call', 'add', call);
 };
 
-export {
+module.exports = {
   addApplication,
   addAddress,
   addBluetooth,

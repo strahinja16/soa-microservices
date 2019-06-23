@@ -77,18 +77,18 @@ class Dashboard extends Component {
 
     return (
       <Fragment>
-        <Segment>
-          <SubHeader header="Bluetooth bonds" />
-          <BluetoothBonds list={bluetooths} />
-        </Segment>
-        <Segment>
-          <SubHeader header="Application process counts" />
-          <ApplicationProcessCounts list={applications} />
-        </Segment>
-        <Segment>
-          <SubHeader header="Call durations" />
-          <CallDurations list={calls} />
-        </Segment>
+        {/*<Segment>*/}
+          {/*<SubHeader header="Bluetooth bonds" />*/}
+          {/*<BluetoothBonds list={bluetooths} />*/}
+        {/*</Segment>*/}
+        {/*<Segment>*/}
+          {/*<SubHeader header="Application process counts" />*/}
+          {/*<ApplicationProcessCounts list={applications} />*/}
+        {/*</Segment>*/}
+        {/*<Segment>*/}
+          {/*<SubHeader header="Call durations" />*/}
+          {/*<CallDurations list={calls} />*/}
+        {/*</Segment>*/}
         <Segment>
           <SubHeader header="Location accuracies" />
           <LocationAccuracies list={locations} />

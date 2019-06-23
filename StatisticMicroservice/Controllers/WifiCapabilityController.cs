@@ -51,10 +51,8 @@ namespace StatisticMicroservice.Controllers
         {
             if (wifiCapability != null)
             {
-                Console.WriteLine(wifiCapability.Id);
                     bool success = await wifiCapabilityRepository.UpdateWifiCapability(wifiCapability);
 
-                    Console.WriteLine(success);
                     if (success)
                     {
                         return new OkResult();

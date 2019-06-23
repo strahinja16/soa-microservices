@@ -56,6 +56,7 @@ services:
     depends_on:
       - apimicroservice
       - mongostatistic
+      - mqtt-service
     build:
       context: .
       dockerfile: StatisticMicroservice/Dockerfile
@@ -71,6 +72,7 @@ services:
     depends_on:
       - apimicroservice
       - mongoseneca
+      - mqtt-service
   
   expressmicroservice:
     build: ./ExpressMicroservice
@@ -83,26 +85,32 @@ services:
     depends_on:
       - statisticmicroservice
       - senecamicroservice
+      - mqtt-service
     
   dashboardmicroservice:
-      build:
-        context: ./DashboardMicroservice
-        args:
-          - NODE_ENV=development
-      ports:
-        - "1233:1233"
-        - "1234:1234"
-        - "3010:3001"
-        - "38771:38771"
-      command: npm run start:dev
-      volumes:
-        - ./DashboardMicroservice:/app
-        - /app/node_modules
-      environment:
+    build:
+      context: ./DashboardMicroservice
+      args:
         - NODE_ENV=development
-        - SENECA_MICRO=http://localhost:3000
-        - STATISTIC_MICRO=http://localhost:8002
-      depends_on:
-        - expressmicroservice
-        - statisticmicroservice
-        - senecamicroservice
+    ports:
+      - "1233:1233"
+      - "1234:1234"
+      - "3010:3001"
+      - "38771:38771"
+    command: npm run start:dev
+    volumes:
+      - ./DashboardMicroservice:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - SENECA_MICRO=http://localhost:3000
+      - STATISTIC_MICRO=http://localhost:8002
+    depends_on:
+      - expressmicroservice
+      - statisticmicroservice
+      - senecamicroservice
+  mqtt-service:
+    image: eclipse-mosquitto
+    ports:
+      - "1883:1883"
+      - "9001:9001"

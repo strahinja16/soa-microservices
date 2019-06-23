@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using StatisticMicroservice.Model;
 using StatisticMicroservice.Repository.Interfaces;
@@ -13,6 +14,14 @@ namespace StatisticMicroservice.Services
         private IWifiCapabilityRepository wifiCapabilityRepository;
         private Random gen = new Random(DateTime.Now.Ticks.GetHashCode());
         private string[] capabilities;
+        private MqttService mqttService;
+
+        public WifiCapabilityService(IWifiCapabilityRepository wifiCapabilityRepository, MqttService mqttService)
+        {
+            this.wifiCapabilityRepository = wifiCapabilityRepository;
+            this.mqttService = mqttService;
+            this.InitCapabilities();
+        }
 
         private void InitCapabilities()
         {
@@ -32,12 +41,6 @@ namespace StatisticMicroservice.Services
             return capabilities[gen.Next(2)];
         }
 
-        public WifiCapabilityService(IWifiCapabilityRepository wifiCapabilityRepository)
-        {
-            this.wifiCapabilityRepository = wifiCapabilityRepository;
-            this.InitCapabilities();
-        }
-
         public void DoWork(IEnumerable<JObject> data)
         {
             DateTime date = GetRandomDate();
@@ -48,7 +51,7 @@ namespace StatisticMicroservice.Services
             {
                 string objCapabilities = (string)obj.Property("capabilities").Value;
                 string objDateString = (string)obj.Property("time").Value;
-                objDateString = objDateString.Substring(0, objDateString.Length - 19);
+                objDateString = objDateString.Substring(0, objDateString.Length - 22);
                 DateTime objDateTime = DateTime.Parse(objDateString);
 
                 if (objCapabilities.Contains(capability) && objDateTime.CompareTo(date) > 0)
@@ -66,6 +69,7 @@ namespace StatisticMicroservice.Services
             };
 
             this.wifiCapabilityRepository.InsertWifiCapability(wifiCapability);
+            mqttService.PublishMessage("wifi", JsonConvert.SerializeObject(wifiCapability));
         }
     }
 }
